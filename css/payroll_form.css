@@ -108,3 +108,23 @@ label {
     border-radius: 4px;
     resize: vertical;
 }
+
+
+/* UC 3 */
+
+.profile-radio-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-radio-content>label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile {
+    width: 40px;
+    border-radius: 50%;
+    margin-left: 12px;
+}

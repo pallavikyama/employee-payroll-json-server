@@ -20,7 +20,12 @@ class EmployeePayrollData {
     // getter and setter method
 
     get name() { return this._name; }
-    set name(name) { this._name = name; }
+    set name(name) {
+        let nameRegex = RegExp('^[A-Z][a-z]{2,}$');
+        if (nameRegex.test(name))
+            this._name = name;
+        else throw 'Name is invalid!';
+    }
 
     get profileImage() { return this._profileImage; }
     set profileImage(profileImage) { this._profileImage = profileImage; }
@@ -32,10 +37,17 @@ class EmployeePayrollData {
     set department(department) { this._department = department; }
 
     get salary() { return this._salary; }
-    set salary(salary) { this._salary = salary; }
+    set salary(salary) {
+        if (salary > 0)
+            this._salary = salary;
+        else throw 'Salary is invalid!';
+    }
 
     get startDate() { return this._startDate; }
-    set startDate(startDate) { this._startDate = startDate; }
+    set startDate(startDate) {
+        if (startDate <= new Date())
+            this._startDate = startDate;
+    }
 
     get notes() { return this._notes; }
     set notes(notes) { this._notes = notes; }

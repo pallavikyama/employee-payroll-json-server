@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/payroll_form.css">
     <title>Employee Payroll form</title>
-    <script defer src="../js/payroll_form.js"></script>
 </head>
 
 <body>
@@ -22,7 +21,7 @@
         </div>
     </header>
     <div class="form-content">
-        <form class="form" action="#" onsubmit="save(event);return false">
+        <form class="form" action="#" onsubmit="save(event);return true;">
             <!-- UC 2 -->
             <div class="form-head"> Employee Payroll Form </div>
             <div class="row-content">
@@ -155,6 +154,7 @@
             </div>
         </form>
     </div>
+    <script src="../js/payroll_form.js"></script>
 </body>
 
 </html>

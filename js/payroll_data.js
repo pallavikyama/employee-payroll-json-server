@@ -26,8 +26,9 @@ class EmployeePayrollData {
 
     get startDate() { return this._startDate; }
     set startDate(startDate) {
-        if (startDate <= new Date())
+        if (startDate.toLocaleDateString <= new Date().toLocaleDateString)
             this._startDate = startDate;
+        else throw 'startDate is invalid!';
     }
 
     get notes() { return this._notes; }

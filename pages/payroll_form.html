@@ -22,13 +22,14 @@
             </div>
         </div>
     </header>
-    <div class="form-content">
-        <form class="form" action="#" onsubmit="save(event);return true;">
+    <div id="formId" class="form-content">
+        <form class="form" action="#" onreset="resetForm()" onsubmit="save()">
             <!-- UC 2 -->
             <div class="form-head"> Employee Payroll Form </div>
             <div class="row-content">
                 <label class="label text" for="name">Name</label>
                 <input class="input" type="text" id="name" name="name" placeholder="Your name.." required>
+                <error-output class="text-error" for="text"></error-output>
             </div>
             <!-- UC 3 -->
             <div class="row-content">
@@ -120,18 +121,18 @@
                     <option value="31">31</option>
                 </select>
                     <select id="month" name="Month">
-                        <option value="Jan">January</option>
-                        <option value="Feb">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="Aug">August</option>
-                        <option value="Sept">September</option>
-                        <option value="Oct">October</option>
-                        <option value="Nov">November</option>
-                        <option value="Dec">December</option>
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
                     </select>
                     <select id="year" name="Year">
                     <option value="2020">2020</option>
@@ -141,6 +142,7 @@
                     <option value="2016">2016</option>
                 </select>
                 </div>
+                <error-output class="date-error" for="text"></error-output>
             </div>
             <!-- UC 6 -->
             <div class="raw-content">

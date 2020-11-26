@@ -26,9 +26,10 @@ class EmployeePayrollData {
 
     get startDate() { return this._startDate; }
     set startDate(startDate) {
-        if (startDate.toLocaleDateString <= new Date().toLocaleDateString)
+        const date = getInputValueById('#day') + " " + getInputValueById('#month') + " " + getInputValueById('#year');
+        if (Date.parse(date) <= Date.now()) {
             this._startDate = startDate;
-        else throw 'startDate is invalid!';
+        } else throw 'Start date is invalid!';
     }
 
     get notes() { return this._notes; }
@@ -36,8 +37,7 @@ class EmployeePayrollData {
 
     // method
     toString() {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const empDate = !this.startDate ? "undefined" : this.startDate.toLocaleDateString("en-US", options);
-        return `id=${this.id}, name=${this.name}, profile-image=${this.profileImage}, gender=${this.gender}, department=${this.department}, salary=${this.salary}, startDate=${empDate}, notes=${this.notes}`;
+        const empDate = new Date(startDateFormat());
+        return `ID=${this.id}, Name=${this.name}, Profile-image=${this.profileImage}, Gender=${this.gender}, Department=${this.department}, Salary=${this.salary}, Start-date=${empDate}, Notes=${this.notes}`;
     }
 }

@@ -87,3 +87,35 @@ function startDateFormat() {
     const dateStr = getInputValueById('#day') + " " + getInputValueById('#month') + " " + getInputValueById('#year');
     return Date.parse(dateStr);
 }
+
+// instead of reset method we can call form button reset
+
+const resetForm = () => {
+    setValue('#name', '');
+    unsetSelectedValues('[name=profile]');
+    unsetSelectedValues('[name=gender]');
+    unsetSelectedValues('[name=department]');
+    setValue('#salary', '');
+    setTextValue('.salary-output', 400000);
+    setValue('#day', '1');
+    setValue('#month', 'January');
+    setValue('#year', '2020');
+    setValue('#notes', '');
+}
+
+const unsetSelectedValues = (propertyValue) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+        item.checked = false;
+    });
+}
+
+const setTextValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.textContent = value;
+}
+
+const setValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.value = value;
+}

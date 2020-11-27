@@ -69,7 +69,7 @@ html body {
 }
 
 .emp-detail-text {
-    font: normal normal bold24px/25px Roboto;
+    font: normal normal bold 24px/25px Roboto;
     letter-spacing: 0px;
     color: #42515f;
     opacity: 1;
@@ -124,7 +124,6 @@ th {
 th {
     background: #42515f 0% 0% no-repeat padding-box;
     border-radius: 3px 3px 0px 0px;
-    text-align: left;
     font: normal normal medium 18px/24px Roboto;
     letter-spacing: 0px;
     color: #ffffff;
@@ -133,14 +132,14 @@ th {
     border: 0px solid #dddddd;
 }
 
-tr:not(:first-child) {
+tr {
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 1px solid #e3e3e3;
     border-radius: 3px;
 }
 
 td {
-    font: normal normal normal 14px/21px Roboto;
+    font: normal normal normal 16px/21px Roboto;
     letter-spacing: 0px;
     color: #3d3d3d;
     opacity: 1;

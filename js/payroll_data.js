@@ -26,8 +26,8 @@ class EmployeePayrollData {
 
     get startDate() { return this._startDate; }
     set startDate(startDate) {
-        const date = getInputValueById('#day') + " " + getInputValueById('#month') + " " + getInputValueById('#year');
-        if (Date.parse(date) <= Date.now()) {
+        startDate = startDateFormat();
+        if (Date.parse(startDate) <= Date.now()) {
             this._startDate = startDate;
         } else throw 'Start date is invalid!';
     }
@@ -38,7 +38,7 @@ class EmployeePayrollData {
     // method
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const empDate = !this.startDate ? "undefined" : new Date(startDateFormat()).toLocaleDateString("en-IN", options);
-        return `ID=${this.id}, Name=${this.name}, Profile-image=${this.profileImage}, Gender=${this.gender}, Department=${this.department}, Salary=${this.salary}, Start-date=${empDate}, Notes=${this.notes}`;
+        const empDate = !this.startDate ? "undefined" : new Date(Date.parse(this.startDate)).toLocaleDateString("en-IN", options);
+        return `ID = ${this.id}\nName = ${this.name}\nProfile-image = ${this.profileImage}\nGender = ${this.gender}\nDepartment = ${this.department}\nSalary = ${this.salary}\nStart-date = ${empDate}\nNotes = ${this.notes}`;
     }
 }

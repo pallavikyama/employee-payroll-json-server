@@ -84,8 +84,7 @@ const getInputValueById = (id) => {
 };
 
 function startDateFormat() {
-    const dateStr = getInputValueById('#day') + " " + getInputValueById('#month') + " " + getInputValueById('#year');
-    return Date.parse(dateStr);
+    return getInputValueById('#day') + " " + getInputValueById('#month') + " " + getInputValueById('#year');
 }
 
 // instead of reset method we can call form button reset

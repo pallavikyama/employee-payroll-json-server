@@ -26,10 +26,12 @@ class EmployeePayrollData {
 
     get startDate() { return this._startDate; }
     set startDate(startDate) {
-        startDate = startDateFormat();
-        if (Date.parse(startDate) <= Date.now()) {
-            this._startDate = startDate;
-        } else throw 'Start date is invalid!';
+        startDate = document.querySelector('#day').value + " " + document.querySelector('#month').value + " " + document.querySelector('#year').value;
+        let now = Date.now();
+        if (Date.parse(startDate) > now) throw 'Start Date is a Future Date!';
+        let diff = (Math.abs(Date.parse(startDate) - now)) / (1000 * 60 * 60 * 24);
+        if (diff > 30) throw 'Start Date is beyond 30 Days!';
+        this._startDate = startDate;
     }
 
     get notes() { return this._notes; }

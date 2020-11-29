@@ -1,7 +1,6 @@
 let empPayrollList;
 window.addEventListener('DOMContentLoaded', (event) => {
     empPayrollList = getEmployeePayrollDataFromLocalStorage();
-    document.querySelector(".emp-count").textContent = empPayrollList.length;
     createInnerHtml();
 });
 
@@ -10,6 +9,7 @@ const getEmployeePayrollDataFromLocalStorage = () => {
 };
 
 const createInnerHtml = () => {
+    document.querySelector(".emp-count").textContent = empPayrollList.length;
     if (empPayrollList.length == 0) return;
     const headerHtml = "<th></th><th>Name</th><th>Gender</th><th>Department</th>" +
         "<th>Salary</th><th>Start Date</th><th>Actions</th>";
@@ -36,7 +36,18 @@ const createInnerHtml = () => {
 const getDeptHtml = (deptList) => {
     let deptHtml = '';
     for (const dept of deptList) {
-        deptHtml = `${deptHtml} <div class="dept-label">${dept}</div>`
+        deptHtml = `${deptHtml} <div class="dept-label">${dept}</div>`;
     }
     return deptHtml;
+};
+
+const remove = (node) => {
+    let empPayrollData = empPayrollList.find(empData => empData._id == node.id);
+    if (!empPayrollData) return;
+    const index = empPayrollList
+        .map(empData => empData._id)
+        .indexOf(empPayrollData._id);
+    empPayrollList.splice(index, 1);
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
+    createInnerHtml();
 };

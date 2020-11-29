@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const dateError = document.querySelector('.date-error');
     startDate.addEventListener('input', function() {
         try {
-            (new EmployeePayrollData()).startDate = startDateFormat();
+            (new EmployeePayrollData()).startDate = startDate.value;
             dateError.textContent = "";
         } catch (e) {
             dateError.textContent = e;
@@ -54,6 +54,7 @@ function createAndUpdateStorage(employeePayrollData) {
 
 const createEmployeePayroll = () => {
     let employeePayrollData = new EmployeePayrollData();
+    employeePayrollData.id = createNewEmployeeId();
     try {
         employeePayrollData.name = getInputValueById('#name');
     } catch (e) {
@@ -64,10 +65,22 @@ const createEmployeePayroll = () => {
     employeePayrollData.gender = getSelectedValues('[name=gender]').pop();
     employeePayrollData.department = getSelectedValues('[name=department]');
     employeePayrollData.salary = getInputValueById('#salary');
-    employeePayrollData.startDate = startDateFormat();
+    try {
+        employeePayrollData.startDate = getInputValueById('#startDate');
+    } catch (e) {
+        setTextValue('.date-error', e);
+        throw e;
+    }
     employeePayrollData.notes = getInputValueById('#notes');
     alert(employeePayrollData.toString());
     return employeePayrollData;
+};
+
+const createNewEmployeeId = () => {
+    let empID = localStorage.getItem("EmployeeID");
+    empID = !empID ? 1 : (parseInt(empID) + 1).toString();
+    localStorage.setItem("EmployeeID", empID);
+    return empID;
 };
 
 const getSelectedValues = (propertyValue) => {
@@ -83,12 +96,7 @@ const getInputValueById = (id) => {
     return document.querySelector(id).value;
 };
 
-function startDateFormat() {
-    return getInputValueById('#day') + " " + getInputValueById('#month') + " " + getInputValueById('#year');
-}
-
-// instead of reset method we can call form button reset
-
+// Instead of reset method, we can call form button reset
 const resetForm = () => {
     setValue('#name', '');
     unsetSelectedValues('[name=profile]');

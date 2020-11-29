@@ -26,7 +26,6 @@ class EmployeePayrollData {
 
     get startDate() { return this._startDate; }
     set startDate(startDate) {
-        startDate = document.querySelector('#day').value + " " + document.querySelector('#month').value + " " + document.querySelector('#year').value;
         let now = Date.now();
         if (Date.parse(startDate) > now) throw 'Start Date is a Future Date!';
         let diff = (Math.abs(Date.parse(startDate) - now)) / (1000 * 60 * 60 * 24);

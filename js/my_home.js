@@ -1,16 +1,35 @@
 let empPayrollList;
 window.addEventListener("DOMContentLoaded", (event) => {
-    empPayrollList = getEmployeePayrollDataFromLocalStorage();
-    createInnerHtml();
-    localStorage.removeItem("editEmp");
+    if (site_properties.use_local_storage.match("true")) {
+        getEmployeePayrollDataFromLocalStorage();
+    } else getEmployeePayrollDataFromServer();
 });
 
 const getEmployeePayrollDataFromLocalStorage = () => {
-    return localStorage.getItem("EmployeePayrollList") ? JSON.parse(localStorage.getItem("EmployeePayrollList")) : [];
+    empPayrollList = localStorage.getItem("EmployeePayrollList") ? JSON.parse(localStorage.getItem("EmployeePayrollList")) : [];
+    processEmployeePayrollDataResponse();
+};
+
+const getEmployeePayrollDataFromServer = () => {
+    makeServiceCall("GET", site_properties.server_url, true)
+        .then(responseText => {
+            empPayrollList = JSON.parse(responseText);
+            processEmployeePayrollDataResponse();
+        })
+        .catch(error => {
+            console.log("GET Error Status: " + JSON.stringify(error));
+            empPayrollList = [];
+            processEmployeePayrollDataResponse();
+        });
+};
+
+const processEmployeePayrollDataResponse = () => {
+    document.querySelector(".emp-count").textContent = empPayrollList.length;
+    createInnerHtml();
+    localStorage.removeItem("editEmp");
 };
 
 const createInnerHtml = () => {
-    document.querySelector(".emp-count").textContent = empPayrollList.length;
     if (empPayrollList.length == 0) return;
     const headerHtml = "<th></th><th>Name</th><th>Gender</th><th>Department</th>" +
         "<th>Salary</th><th>Start Date</th><th>Actions</th>";
@@ -50,8 +69,9 @@ const remove = (node) => {
         .indexOf(empPayrollData.id);
     empPayrollList.splice(index, 1);
     localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
-    window.location.replace(site_properties.home_page);
+    document.querySelector(".emp-count").textContent = empPayrollList.length;
     createInnerHtml();
+    window.location.replace(site_properties.home_page);
 };
 
 const update = (node) => {

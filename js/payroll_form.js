@@ -42,16 +42,37 @@ const save = (event) => {
     event.stopPropagation();
     try {
         setEmployeePayrollObject();
-        createAndUpdateStorage();
-        resetForm();
-        window.location.replace(site_properties.home_page);
+        if (site_properties.use_local_storage.match("true")) {
+            createAndUpdateStorage();
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        } else {
+            createOrUpdateEmployeePayrollServer();
+        }
     } catch (e) {
         return;
     }
 };
 
+const createOrUpdateEmployeePayrollServer = () => {
+    let postURL = site_properties.server_url;
+    let methodCall = "POST";
+    if (isUpdate) {
+        methodCall = "PUT";
+        postURL = postURL + employeePayrollObj.id.toString();
+    }
+    makeServiceCall(methodCall, postURL, true, employeePayrollObj)
+        .then(() => {
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        })
+        .catch(error => {
+            throw error;
+        })
+};
+
 const setEmployeePayrollObject = () => {
-    if (!isUpdate && site_properties.use_local_storage.match("true")) {
+    if (!isUpdate) {
         employeePayrollObj.id = createNewEmployeeId();
     }
     employeePayrollObj._name = getInputValueById("#name");
